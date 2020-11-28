@@ -47,12 +47,32 @@ void Graph::removeVertex(std::string label) {
 
 
 void Graph::addEdge(std::string label1, std::string label2, unsigned long weight) {
-  
+  bool checkA = false, checkB = false;
+    // iterate and check if vector contains the labels -> flag them
+    for(auto v : vertices) {
+        if(v == label1) { checkA = true; }
+        if(v == label2) { checkB = true; }      
+    }
+    // if both labels are in the vector 
+    if(checkA && checkB) {
+            Edge *edge = new Edge();
+            edge->u = label1;
+            edge->v = label2;
+            edge->edgeWeight = weight;
+            graphComps.push_back(edge);
+    }
 };
 
 
 void Graph::removeEdge(std::string label1, std::string label2) {
-   
+   Edge* edge = new Edge();
+//    iterate and delete the matching label 
+   for(unsigned int i = 0; i < graphComps.size(); i++) {
+       edge = graphComps[i];
+       if(edge->u == label1 && edge->v == label2) {
+           graphComps.erase(graphComps.begin()+i);
+       }
+   }
 };
 
 
@@ -62,5 +82,7 @@ unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel, 
 };
 
 void Graph::printShortestPath(std::map<std::string,std::string> labeledVertices, std::string endLabel , std::vector<std::string> &path) {
-   
+   if (labeledVertices[endLabel] == EMPTY_STR) { return; }
+   printShortestPath(labeledVertices, labeledVertices[endLabel],path);
+   path.push_back(endLabel);
 };
