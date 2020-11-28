@@ -32,7 +32,7 @@ void Graph::removeVertex(std::string label) {
     for(unsigned int i = 0; i <  vertices.size(); i++) {
         if(vertices.at(i) == label) {
             // if the label exists, then remove it from the vector
-             verticesVec.erase(vertices.begin() + i);
+             vertices.erase(vertices.begin() + i);
         
             for(unsigned int j = 0; j < graphComps.size(); j++) {
                 Edge *tempEdge = new Edge();
