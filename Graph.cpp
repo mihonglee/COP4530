@@ -14,6 +14,7 @@ identify that vertex to you and the test file.
 #include <queue>
 #include <string>
 #include <vector>
+using namespace std;
 
 //Creates and adds a vertex to the graph with label. No two vertices should have the same label.
 
