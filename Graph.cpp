@@ -88,6 +88,47 @@ between the vertices. The return value is the sum of the edges between the start
 vertices on the shortest path. */
 
 unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel, std::vector<std::string> &path) {
-   
-   
+    std::priority_queue< std::pair<int, std::string>, std::vector <std::pair<int, std::string> >,
+    std::greater<std::pair<int, std::string> > > priorityQueue;
+    
+    std::map<std::string,std::string> labeledVertices;
+    std::map<std::string,int> weightMap;
+    
+    // initalize the dijkstra's table to empty strings, and infinity for the weights
+    for (auto label : verticesVec) {
+        labeledVertices[label] = EMPTY_STR;
+        weightMap[label] = INF;
+    }
+    // first add the starting point to the priority queue
+    priorityQueue.push(make_pair(0, startLabel));
+    weightMap[startLabel] = 0;
+    
+    // do dijkstra's algo
+    while (!priorityQueue.empty()) {
+        std::string topLabel = priorityQueue.top().second;
+        priorityQueue.pop();
+      
+        std::string curVertex;
+
+        // checking with all it's adjacent neighbors and their weights...
+        for (auto adjNeighbor : graphComps) {
+            if(adjNeighbor->u == topLabel) { curVertex = adjNeighbor->v; }
+            else if(adjNeighbor->v == topLabel) { curVertex = adjNeighbor->u; }
+            else { continue; }
+
+            // hold the temporary weight of current vertex
+            int weight = adjNeighbor->edgeWeight;
+
+            // do algo calculation
+            if (weightMap[topLabel] + weight < weightMap[curVertex]) {
+                labeledVertices[curVertex] = topLabel;
+                weightMap[curVertex] = weightMap[topLabel] + weight;
+                priorityQueue.push(make_pair(weightMap[curVertex], curVertex));
+            }
+        }
+    }
+    path.push_back(startLabel);
+    // print the shortest path
+    printShortestPath(labeledVertices, endLabel, path);
+    return weightMap[endLabel];
 };
