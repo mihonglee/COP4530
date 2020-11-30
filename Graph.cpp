@@ -20,10 +20,10 @@ using namespace std;
 
 void Graph::addVertex(std::string label) {
     for (unsigned int i = 0; i < vertices.size(); i++) {
-        // if the label exists already, then don't add to the vertice vector.
+        // check if the desired label exists already - if so do not do anything
         if (vertices.at(i) == label) { return; }
     }
-    // otherwise, it doesn't exist already in the vector, so add it.
+    // after verifying it doesn't exist in the vector, add the vertex
      vertices.push_back(label);
 };
 
