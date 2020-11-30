@@ -81,9 +81,3 @@ unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel, 
    
    
 };
-
-void Graph::printShortestPath(std::map<std::string,std::string> labeledVertices, std::string endLabel , std::vector<std::string> &path) {
-   if (labeledVertices[endLabel] == " ") { return; }
-   printShortestPath(labeledVertices, labeledVertices[endLabel],path);
-   path.push_back(endLabel);
-};
