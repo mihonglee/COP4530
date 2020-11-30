@@ -12,8 +12,9 @@ public:
     Graph() {
 
     };
+    //destructor
     ~Graph() {
-       
+       graphComps.erase(graphComps.begin(), graphComps.end());
     };
     void addVertex(std::string label);
     void removeVertex(std::string label);
