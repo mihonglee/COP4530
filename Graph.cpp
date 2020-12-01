@@ -90,20 +90,20 @@ unsigned long Graph::shortestPath(std::string startLabel, std::string endLabel, 
     
     // dijkstra
     while (!priorityQ.empty()) {
-        string topLabel = priorityQ.top().second;
+        string topMost = priorityQ.top().second;
         priorityQ.pop();
       
         string current;
         // checking with all it's adjacent neighbors and their weights...
         for (auto adjacent : components) {
-            if(adjacent->v == topLabel) { current = adjacent->u; }
-            else if(adjacent->u == topLabel) { current = adjacent->v; }
+            if(adjacent->v == topMost) { current = adjacent->u; }
+            else if(adjacent->u == topMost) { current = adjacent->v; }
             else { continue; }
 
             // relaxation
-            if (weightMap[topLabel] + adjacent->eW < weightMap[current]) {
-                verticesMap[current] = topLabel;
-                weightMap[current] = weightMap[topLabel] + adjacent->eW;
+            if (weightMap[topMost] + adjacent->eW < weightMap[current]) {
+                verticesMap[current] = topMost;
+                weightMap[current] = weightMap[topMost] + adjacent->eW;
                 priorityQ.push(make_pair(weightMap[current], current));
             }
         }
